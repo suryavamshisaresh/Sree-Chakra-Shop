@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "AquaPure RO+UV+UF",
+    "price": 18999,
+    "description": "7-stage purification with mineral retention technology. Removes 99.9% of impurities including bacteria, viruses, and heavy metals. Features TDS controller and UV protection for complete water safety. Suitable for families of 5-8 members.",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+    "features": ["RO Purification", "UV Protection", "UF Filtration", "TDS Controller", "Mineral Retention", "7-Stage Filtration"],
+    "category": "ro+uv",
+    "stock": 50
+  },
+  {
+    "id": "2",
+    "name": "PureFlow Gravity Purifier",
+    "price": 8999,
+    "description": "Non-electric gravity based water purifier perfect for areas with frequent power cuts. Uses advanced carbon and sediment filters to remove impurities. No electricity needed, easy maintenance, and perfect for small families.",
+    "image": "https://images.unsplash.com/photo-1564971668106-93f2f4b2e176?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+    "features": ["Non-Electric", "Gravity Based", "9L Capacity", "No Maintenance", "Carbon Filter", "Sediment Filter"],
+    "category": "gravity",
+    "stock": 30
+  }
+]

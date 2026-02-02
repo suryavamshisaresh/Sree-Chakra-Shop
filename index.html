@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sree Chakra - Premium Water Purifiers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Sree Chakra</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+               <a href="admin-login.html" class="admin-link">Admin Panel</a>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Pure Water, Healthy Life</h1>
+                <p>Advanced water purification systems for your home and office</p>
+                <a href="#products" class="btn">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2>Our Water Purifiers</h2>
+            <p class="section-subtitle">Browse our collection of premium water purification systems</p>
+            <div class="products-grid" id="productsContainer">
+                <!-- Products will load here automatically -->
+                <div class="loading">Loading products...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <h2>Why Choose Sree Chakra?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-filter"></i>
+                    <h3>Advanced RO Technology</h3>
+                    <p>Removes 99.9% of impurities</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-battery-full"></i>
+                    <h3>Mineral Retention</h3>
+                    <p>Keeps essential minerals intact</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>High Capacity</h3>
+                    <p>10-20 liters per hour purification</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>1 Year Warranty</h3>
+                    <p>Comprehensive warranty coverage</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <span class="close-cart" onclick="closeCart()">&times;</span>
+            <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-total">
+                <h3>Total: ₹<span id="cartTotal">0</span></h3>
+            </div>
+            <div class="cart-actions">
+                <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+                <button class="btn btn-secondary" onclick="closeCart()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sree Chakra</h3>
+                    <p>Clean Water Solutions Since 2021</p>
+                    <p>Trusted by 500+ families</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> +91 7416290032</p>
+                    <p><i class="fas fa-envelope"></i> bhojaram.s@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Bhainsa, India</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#products">Products</a></p>
+                    <p><a href="#about">About Us</a></p>
+                    <p><a href="admin.html">Admin Panel</a></p>
+                </div>
+            </div>
+            <p class="copyright">© 2026 Sree Chakra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

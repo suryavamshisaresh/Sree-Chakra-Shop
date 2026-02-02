@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Sree Chakra</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="admin-container" id="adminContainer">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h2>Sree Chakra Admin</h2>
+                <div class="mobile-close" onclick="toggleMobileMenu()">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <nav class="admin-nav">
+                <a href="#" class="active" onclick="showSection('products')">
+                    <i class="fas fa-box"></i> <span>Manage Products</span>
+                </a>
+                <a href="#" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i> <span>Settings</span>
+                </a>
+                <a href="index.html" class="back-to-store">
+                    <i class="fas fa-store"></i> <span>Back to Store</span>
+                </a>
+                <a href="#" onclick="logout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                </a>
+            </nav>
+            
+            <div class="mobile-status">
+                <p><i class="fas fa-mobile-alt"></i> Mobile View Active</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1>Product Management</h1>
+                    <div class="mobile-title" id="mobileTitle">Products</div>
+                </div>
+                <div class="admin-info">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Admin Mode</span>
+                </div>
+            </header>
+
+            <!-- Products Section -->
+            <div class="section active" id="productsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-box"></i> All Products</h2>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary mobile-btn" id="resetBtn">
+                            <i class="fas fa-undo"></i> <span class="btn-text">Reset</span>
+                        </button>
+                        <button class="btn btn-primary mobile-btn" id="addProductBtn">
+                            <i class="fas fa-plus"></i> <span class="btn-text">Add Product</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="products-list" id="productsList">
+                    <!-- Products will be loaded here -->
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Loading products...
+                    </div>
+                </div>
+                
+                <div class="data-info">
+                    <p><i class="fas fa-info-circle"></i> Products saved in browser storage. Changes appear instantly.</p>
+                </div>
+                
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-box"></i>
+                        <h3 id="totalProducts">0</h3>
+                        <p>Total Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-rupee-sign"></i>
+                        <h3 id="totalValue">₹0</h3>
+                        <p>Total Value</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-cubes"></i>
+                        <h3 id="totalStock">0</h3>
+                        <p>Total Stock</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+             <div class="settings-card">
+    <h3><i class="fab fa-whatsapp"></i> WhatsApp Contact</h3>
+    <p class="help-text"><i class="fas fa-info-circle"></i> Set WhatsApp number for customer inquiries</p>
+    
+    <div class="form-group">
+        <label><i class="fas fa-phone"></i> WhatsApp Number</label>
+        <input type="tel" id="whatsappNumber" placeholder="9876543210" pattern="[0-9]{10}">
+        <small><i class="fas fa-info-circle"></i> Enter 10-digit mobile number (without country code)</small>
+    </div>
+    
+    <button class="btn btn-success mobile-btn" onclick="saveWhatsAppNumber()">
+        <i class="fas fa-save"></i> <span class="btn-text">Save WhatsApp Number</span>
+    </button>
+    
+    <div class="whatsapp-preview">
+        <h4><i class="fas fa-eye"></i> Preview:</h4>
+        <p>Customers will contact: <strong id="whatsappPreview">+91 7416290032</strong></p>
+        <p><i class="fas fa-comment"></i> Product details will be sent automatically</p>
+    </div>
+</div>
+            <div class="section" id="settingsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3><i class="fas fa-key"></i> Change Admin Password</h3>
+                        <p class="help-text"><i class="fas fa-info-circle"></i> Change your login password for security</p>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-lock"></i> Current Password
+                                <button type="button" class="show-password-btn" onclick="togglePasswordVisibility('currentPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </label>
+                            <input type="password" id="currentPassword" placeholder="Enter current password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-key"></i> New Password
+                                <button type="button" class="show-password-btn" onclick="togglePasswordVisibility('newPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </label>
+                            <input type="password" id="newPassword" placeholder="Enter new password (min 6 characters)" oninput="updatePasswordStrength()">
+                            <div id="passwordStrength"></div>
+                            <small><i class="fas fa-exclamation-circle"></i> Must be at least 6 characters long</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-key"></i> Confirm New Password
+                                <button type="button" class="show-password-btn" onclick="togglePasswordVisibility('confirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </label>
+                            <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                        </div>
+                        
+                        <button class="btn btn-primary mobile-btn" onclick="changePassword()">
+                            <i class="fas fa-save"></i> <span class="btn-text">Update Password</span>
+                        </button>
+                        
+                        <div class="password-tips">
+                            <h4><i class="fas fa-lightbulb"></i> Password Tips:</h4>
+                            <ul>
+                                <li>Use at least 8 characters</li>
+                                <li>Mix uppercase and lowercase letters</li>
+                                <li>Include numbers and symbols</li>
+                                <li>Avoid common words</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Emergency Access</h3>
+                        <p class="help-text"><i class="fas fa-info-circle"></i> Use only if you forgot your password</p>
+                        
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <p><strong>Warning:</strong> This will reset password to "admin123" and logout all sessions.</p>
+                        </div>
+                        
+                        <button class="btn btn-warning mobile-btn" onclick="resetPasswordToDefault()">
+                            <i class="fas fa-redo"></i> <span class="btn-text">Reset to Default Password</span>
+                        </button>
+                        
+                        <div class="emergency-instructions">
+                            <h4><i class="fas fa-life-ring"></i> Emergency Instructions:</h4>
+                            <ol>
+                                <li>Click "Reset to Default Password"</li>
+                                <li>Login with password: <strong>admin123</strong></li>
+                                <li>Change your password immediately</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3><i class="fas fa-database"></i> Data Management</h3>
+                        <p class="help-text"><i class="fas fa-info-circle"></i> Backup and restore your product data</p>
+                        
+                        <div class="data-actions">
+                            <button class="btn btn-secondary mobile-btn" onclick="exportProducts()">
+                                <i class="fas fa-download"></i> <span class="btn-text">Export Products</span>
+                            </button>
+                            <button class="btn btn-secondary mobile-btn" onclick="importProducts()">
+                                <i class="fas fa-upload"></i> <span class="btn-text">Import Products</span>
+                            </button>
+                            <button class="btn btn-danger mobile-btn" onclick="clearAllData()">
+                                <i class="fas fa-trash"></i> <span class="btn-text">Clear All Data</span>
+                            </button>
+                        </div>
+                        
+                        <div class="data-stats">
+                            <p><i class="fas fa-info-circle"></i> Current storage: <span id="storageUsage">Calculating...</span></p>
+                            <p><i class="fas fa-history"></i> Last backup: <span id="lastBackup">Never</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3><i class="fas fa-user-shield"></i> Admin Session</h3>
+                        <p class="help-text"><i class="fas fa-info-circle"></i> Manage your admin access</p>
+                        
+                        <div class="session-info">
+                            <p><i class="fas fa-clock"></i> Session expires in: <span id="sessionTimer">Loading...</span></p>
+                            <p><i class="fas fa-user"></i> Logged in since: <span id="loginTime">Loading...</span></p>
+                        </div>
+                        
+                        <div class="session-actions">
+                            <button class="btn btn-secondary mobile-btn" onclick="renewSession()">
+                                <i class="fas fa-sync"></i> <span class="btn-text">Renew Session</span>
+                            </button>
+                            <button class="btn btn-danger mobile-btn" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i> <span class="btn-text">Logout Now</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3><i class="fas fa-mobile-alt"></i> Mobile Controls</h3>
+                    <div class="mobile-controls">
+                        <button class="btn btn-secondary" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars"></i> Toggle Menu
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.location.reload()">
+                            <i class="fas fa-redo"></i> Refresh Page
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Required Message (Hidden by default) -->
+    <div class="login-required" id="loginRequired" style="display: none;">
+        <div class="login-message">
+            <i class="fas fa-lock"></i>
+            <h2>Admin Access Required</h2>
+            <p>Please login to access the admin panel</p>
+            <a href="admin-login.html" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Go to Login
+            </a>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Product</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <input type="hidden" id="productId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productName"><i class="fas fa-tag"></i> Product Name</label>
+                        <input type="text" id="productName" required placeholder="Enter product name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productPrice"><i class="fas fa-rupee-sign"></i> Price (₹)</label>
+                        <input type="number" id="productPrice" required placeholder="Enter price" min="0" step="100">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription"><i class="fas fa-align-left"></i> Description</label>
+                    <textarea id="productDescription" required placeholder="Enter product description" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="productImage"><i class="fas fa-image"></i> Image URL</label>
+                    <input type="text" id="productImage" required placeholder="Enter image URL or upload">
+                    <div class="image-upload-hint">
+                        <small><i class="fas fa-lightbulb"></i> Tip: Use free image hosting like ImgBB or Postimages</small>
+                    </div>
+                    <div class="image-preview" id="imagePreview">
+                        <p><i class="fas fa-image"></i> Image will appear here</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-star"></i> Features (comma separated)</label>
+                    <input type="text" id="productFeatures" placeholder="RO, UV, 10LPH, TDS Controller">
+                    <small><i class="fas fa-info-circle"></i> Example: RO, UV, Mineralizer, 10LPH</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productCategory"><i class="fas fa-folder"></i> Category</label>
+                        <select id="productCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="ro">RO Water Purifier</option>
+                            <option value="uv">UV Water Purifier</option>
+                            <option value="ro+uv">RO+UV Water Purifier</option>
+                            <option value="alkaline">Alkaline Water Purifier</option>
+                            <option value="gravity">Gravity Based</option>
+                            <option value="commercial">Commercial</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productStock"><i class="fas fa-cubes"></i> Stock Quantity</label>
+                        <input type="number" id="productStock" required placeholder="Stock quantity" min="0" value="10">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary mobile-btn">
+                        <i class="fas fa-save"></i> <span class="btn-text">Save Product</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary mobile-btn" onclick="closeModal()">
+                        <i class="fas fa-times"></i> <span class="btn-text">Cancel</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <button class="mobile-nav-btn" onclick="showSection('products')">
+            <i class="fas fa-box"></i>
+            <span>Products</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="showAddProductForm()">
+            <i class="fas fa-plus-circle"></i>
+            <span>Add New</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="showSection('settings')">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </button>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="admin.js"></script>
+    
+    <!-- Setup event listeners after script loads -->
+    <script>
+        // Wait for admin.js to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup event listeners for buttons
+            setTimeout(() => {
+                // Add product button
+                const addProductBtn = document.getElementById('addProductBtn');
+                if (addProductBtn) {
+                    addProductBtn.addEventListener('click', function() {
+                        if (typeof showAddProductForm === 'function') {
+                            showAddProductForm();
+                        }
+                    });
+                }
+                
+                // Reset button
+                const resetBtn = document.getElementById('resetBtn');
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', function() {
+                        if (typeof resetToDefault === 'function') {
+                            resetToDefault();
+                        }
+                    });
+                }
+                
+                // Mobile bottom navigation
+                const mobileNavBtns = document.querySelectorAll('.mobile-nav-btn');
+                mobileNavBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const text = this.querySelector('span')?.textContent || '';
+                        if (text.includes('Products') || this.querySelector('.fa-box')) {
+                            if (typeof showSection === 'function') showSection('products');
+                        } else if (text.includes('Settings') || this.querySelector('.fa-cog')) {
+                            if (typeof showSection === 'function') showSection('settings');
+                        } else if (text.includes('Add New') || this.querySelector('.fa-plus-circle')) {
+                            if (typeof showAddProductForm === 'function') showAddProductForm();
+                        }
+                    });
+                });
+                
+                // Setup image preview event
+                const productImageInput = document.getElementById('productImage');
+                if (productImageInput) {
+                    productImageInput.addEventListener('input', function() {
+                        if (typeof updateImagePreview === 'function') {
+                            updateImagePreview(this.value);
+                        }
+                    });
+                }
+                
+                // Setup password strength indicator
+                const newPasswordInput = document.getElementById('newPassword');
+                if (newPasswordInput) {
+                    newPasswordInput.addEventListener('input', function() {
+                        if (typeof updatePasswordStrength === 'function') {
+                            updatePasswordStrength();
+                        }
+                    });
+                }
+                
+                console.log('All event listeners set up successfully!');
+            }, 100);
+        });
+    </script>
+</body>
+</html>
